@@ -1,9 +1,21 @@
 <!DOCTYPE html>
 <html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
 <body>
 
 <h1>My First Heading</h1>
 <p>My first paragraph.</p>
+
+
+<script type="text/javascript">
+	var clickHandler = function (event) {
+		console.log("Клик! " + event.pageX + " " + event.pageY);
+	};
+	$("h1").click(clickHandler);
+</script>
 
 </body>
 </html>
