@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Mouse move</title>
+</head>
+<body>
+    <h1 id="heading">Hello, world!</h1>
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <script>
+        	$("html").mousemove(function (event) {
+        		$("#heading").offset({
+        			top: event.pageY,
+        			left: event.pageX
+        		});
+        	});
+    </script>
+</body>
+</html>
