@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mousemove</title>
+
+    <style type="text/css">
+      h1#heading{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        margin: 0;
+      }
+    </style>
+</head>
+
+<body>
+    <h1 id="heading">Hello world!</h1>
+
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+
+    <script>
+
+      let offSet = 0;
+
+      let direction = "right";
+
+      $("#heading").offset({left:offSet,top:offSet});
+
+      let moveHeading = function () {
+        if (direction === "right") {
+          offSet++;
+          $("#heading").offset({left:offSet});
+          if (offSet >= 200) {direction = "down";offSet = 0}
+        } else if (direction === "down") {
+          offSet++;
+          $("#heading").offset({top:offSet});
+          if (offSet >= 200) {direction = "left";}
+        } else if (direction === "left") {
+          offSet--;
+          $("#heading").offset({left:offSet});
+          if (offSet == 0) {direction = "up";offSet = 200}
+        } else if (direction === "up") {
+          offSet--;
+          $("#heading").offset({top:offSet});
+          if (offSet == 0) {direction = "right";offSet = 0}
+        }
+      }
+
+      let intervalID;
+
+      let intervalMoveHeading = 100;
+
+      intervalID = setInterval(moveHeading, intervalMoveHeading);
+
+      let moveHeadingFasterUntilCountTen = function() {
+        
+        if( intervalID < 10 ) {
+          clearInterval(intervalID);
+          intervalMoveHeading -= 16;
+          intervalID = setInterval(moveHeading, intervalMoveHeading);
+
+          $("#heading").text("Clicks: " + ( intervalID - 1 ));
+
+        } else if ( intervalID >= 10 ) {
+          clearInterval(intervalID);
+
+          $("#heading").text("You are won!");
+        }
+
+      }
+
+      $("#heading").click(moveHeadingFasterUntilCountTen);
+
+
+    </script>
+</body>
+</html>

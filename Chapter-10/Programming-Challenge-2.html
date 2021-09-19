@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mousemove</title>
+
+    <style type="text/css">
+      h1#heading{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        margin: 0;
+      }
+    </style>
+</head>
+
+<body>
+    <h1 id="heading">Hello world!</h1>
+
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+
+    <script>
+
+      //setInterval for h1 to 200
+
+      let leftOffset = 0;
+      let topOffset = 0;
+      let position = "positionHeaderIsLeftTop";
+
+
+      setInterval(function(){
+        if (position == "positionHeaderIsLeftTop") {
+          $('#heading').offset({left:leftOffset});
+          leftOffset += 1;
+          if (leftOffset == 201 && topOffset == 0) {position = "positionHeaderIsRightTop"}
+        } else if (position == "positionHeaderIsRightTop") {
+          $('#heading').offset({top:topOffset});
+          topOffset += 1;
+          if (leftOffset == 201 && topOffset == 201) {position = "positionHeaderIsRightButtom"}
+        } else if (position == "positionHeaderIsRightButtom") {
+          $('#heading').offset({left:leftOffset});
+          leftOffset -= 1;
+          if (leftOffset == 0 && topOffset == 201) {position = "positionHeaderIsLeftButtom"}
+        } else if (position == "positionHeaderIsLeftButtom") {
+          $('#heading').offset({top:topOffset});
+          topOffset -= 1;
+          if (leftOffset == 0 && topOffset == 0) {position = "positionHeaderIsLeftTop"}
+        }
+      }, 10);
+
+    </script>
+</body>
+</html>
