@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>o.o.p.!</title>
+</head>
+<body>
+
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+
+    <script>
+
+      let dog = {
+        name: "Rexx",
+        legs: 4,
+        isAwesome: true
+      };
+
+      dog.age = 6;
+
+      dog.bark = function() {
+        console.log("wow wow, hello my name is: " + this.name + "!")
+      }
+/*
+      dog.bark();
+*/
+
+      let speak = function() {
+        console.log(this.sound + " hello my name is " + this.name + " !");
+      }
+
+      let cat = {
+        sound: "Meow!",
+        name: "Wariejka",
+        speak: speak
+      };
+
+      var pig = {
+        sound: "Хрю",
+        name: "Чарли",
+        speak: speak
+      };
+
+      var horse = {
+        sound: "И-го-го",
+        name: "Мэри",
+        speak: speak
+      };
+
+      horse.speak();;
+
+      /* check code  check code  check code  check code  check code  check code  check code */
+
+/*
+      alert(Object.keys(dog)[3]);
+*/
+/*
+      alert(Object.keys(dog)[2]);
+*/
+    </script>
+</body>
+</html>

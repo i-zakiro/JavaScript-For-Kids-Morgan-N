@@ -1,0 +1,112 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Race</title>
+    </head>
+    <body>
+        <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+        <script>
+            // JavaScript-code
+
+            let Car = function (x, y) {
+
+                this.x = x;
+                this.y = y;
+                this.draw();
+
+            };
+
+            Car.prototype.draw = function () {
+
+                let carHtml = '<img src="https://cdn.shopify.com/s/files/1/0446/7333/5455/t/3/assets/pf-f1b99ed6--deliveryvan.gif?v=1596456583">';
+
+                this.carElement = $(carHtml);
+
+                this.carElement.css({
+                    position: "absolute",
+                    left: this.x,
+                    top:  this.y
+                });
+
+                $("body").append(this.carElement);
+
+            };
+
+
+
+            Car.prototype.moveRight = function(speed) {
+
+                this.x += speed;
+
+                this.carElement.css({
+                    left: this.x,
+                    top:  this.y
+                });
+
+            };
+
+            Car.prototype.moveDown = function(speed){
+
+                this.y += speed;
+
+                this.carElement.css({
+                    left: this.x,
+                    top: this.y
+                });
+
+            };
+
+            Car.prototype.moveLeft = function(speed){
+
+                this.x -= speed;
+
+                this.carElement.css({
+                    left: this.x,
+                    top: this.y
+                });
+
+            };
+
+            Car.prototype.moveUp = function(speed){
+                this.y -= speed;
+                this.carElement.css({
+                    left: this.x,
+                    top: this.y
+                });
+            }
+
+
+
+
+            var tesla = new Car(9, 20);
+            var nissan = new Car(280, 220);
+
+
+
+
+
+            setInterval( function(){ 
+                tesla.moveRight( 
+                    Math.floor(Math.random() * 5)
+                ) 
+            }, 30);
+
+            setInterval( function(){ 
+                nissan.moveRight( 
+                    Math.floor(Math.random() * 5)
+                ) 
+            }, 30);
+            
+
+            /*check codecheck codecheck codecheck codecheck code*/
+/*
+            let nissan = new Car(11, 22);
+
+            console.log(nissan);
+*/
+
+
+        </script>
+    </body>
+</html>

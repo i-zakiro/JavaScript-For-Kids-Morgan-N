@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Race</title>
+    </head>
+    <body>
+        <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+        <script>
+            // JavaScript-code
+
+            let Car = function(x, y) {
+                this.x = x;
+                this.y = y;
+            };
+
+            let drawCar = function(car) {
+
+                let carHtml = '<img src="http://nostarch.com/images/car.png">';
+
+                let carElement = $(carHtml);
+
+                carElement.css({
+                    position: "absolute",
+                    left: car.x,
+                    top: car.y
+                });
+
+                $("body").append(carElement);
+
+            };
+
+            let tesla = new Car(20, 20);
+            let nissan = new Car(100, 200);
+
+            drawCar(tesla);
+            drawCar(nissan);
+
+            /*check codecheck codecheck codecheck codecheck code*/
+
+            //console.log(nissan);
+
+        </script>
+    </body>
+</html>
