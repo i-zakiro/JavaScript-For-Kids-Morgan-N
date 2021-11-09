@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mousemove</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <canvas id="canvas" width="900" height="900"></canvas>
+        <script>
+
+            // JavaScript-code
+
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext("2d");
+
+
+        $("canvas").mousemove(function(event){
+            ctx.beginPath();
+            ctx.arc(event.pageX, event.pageY, 3, 0, 2 * Math.PI);
+            ctx.fill();
+        });
+
+        </script>
+    </body>
+</html>

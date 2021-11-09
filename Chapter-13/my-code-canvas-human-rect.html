@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Canvas</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="200" height="200"></canvas>
+        <script>
+            // Здесь будет JavaScript-код
+            let canvas = document.getElementById("canvas");
+            let ctx = canvas.getContext("2d");
+            //ctx.fillStyle = "red";
+
+            ctx.fillRect(75, 0, 50, 50);
+            ctx.fillRect(95, 50, 10, 20);
+            ctx.fillRect(67.5, 67.5 , 65, 65);
+            ctx.fillStyle = "red";
+            ctx.fillRect(0, 67.5 , 200, 10);
+            ctx.fillRect(67.5, 67.5 , 10 , 132.2);
+            ctx.fillRect(122.5, 67.5 , 10 , 132.2);
+            
+
+
+
+
+            console.log(canvas);
+        </script>
+    </body>
+</html>

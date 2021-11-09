@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Canvas</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="200" height="200"></canvas>
+        <script>
+            // JavaScript-code
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+            ctx.strokeStyle = "Green";
+            ctx.lineWidth = 4;
+
+
+            let circle = function( x, y, radius, fillCircle ) {
+
+                ctx.beginPath();
+
+                ctx.arc( x, y, radius, Math.PI * 2, false );
+
+                if( fillCircle ) {
+                    ctx.fill();
+                } else {
+                    ctx.stroke();
+                };
+
+            };
+
+
+            ctx.strokeStyle = "Red";
+            circle( 100, 100, 90, false );
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Canvas if error game</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <p id="textp"></p>
+        <canvas id="canvas" width="900" height="900"></canvas>
+        <script>
+
+
+            var canvas = document.getElementById('canvas');
+            var ctx = canvas.getContext('2d');
+
+            function draw(answerNumber) {
+/*
+                ctx.fillStyle = "green";
+                ctx.fillRect(10, 10, 100, 100);
+                */
+
+                document.getElementById('textp').innerHTML = answerNumber;
+            }
+
+            for ( let i = 0; i<5; i++ ) {
+
+                let answerNumber;
+
+                if (confirm("yes or no?")) {
+                    answerNumber = prompt("vvedite chislo", "");
+                    document.getElementById('textp').innerHTML = answerNumber;
+                }
+
+
+                draw(answerNumber);
+
+            }
+
+        </script>
+    </body>
+</html>

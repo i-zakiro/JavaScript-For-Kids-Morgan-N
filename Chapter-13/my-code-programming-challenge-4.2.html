@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Canvas if error game</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <canvas id="canvas" width="900" height="900"></canvas>
+        <script>
+
+            // JavaScript-code
+
+            let wordsArray = [
+                "qwertyq",
+                "asdfghqq",
+                "zxcvbnqqq"
+            ];
+
+            let randomWordFromArray = wordsArray[Math.floor(Math.random() * wordsArray.length)];
+
+            let errorCount = 0;
+
+            let answerArray = [];
+
+            for( let i = 0; i < randomWordFromArray.length; i++ ){
+                answerArray[i] = "_";
+            };
+
+            let countSecretSimbols = randomWordFromArray.length;
+
+
+            let canvasIfError = function() {
+
+                let canvas = document.getElementById('canvas');
+                let ctx = canvas.getContext('2d');
+
+                ctx.lineWidth = 4;
+
+                if (errorCount == 1) {
+                    ctx.strokeRect( 10, 10, 20, 20 );
+                } else if (errorCount == 2) {
+                    ctx.strokeRect( 10, 10, 20, 20 );
+                    ctx.moveTo( 20, 30 );
+                    ctx.lineTo( 20, 65 );
+                } else if (errorCount == 3) {
+                    ctx.strokeRect( 10, 10, 20, 20 );
+                    ctx.moveTo( 20, 30 );
+                    ctx.lineTo( 20, 65 );
+                    ctx.moveTo( 0, 38 );
+                    ctx.lineTo( 20, 48 );
+                } else if (errorCount == 4) {
+                    ctx.strokeRect( 10, 10, 20, 20 );
+                    ctx.moveTo( 20, 30 );
+                    ctx.lineTo( 20, 65 );
+                    ctx.moveTo( 0, 38 );
+                    ctx.lineTo( 20, 48 );
+                    ctx.moveTo( 20, 48 );
+                    ctx.lineTo( 40, 38 );
+                } else if (errorCount == 5) {
+                    ctx.strokeRect( 10, 10, 20, 20 );
+                    ctx.moveTo( 20, 30 );
+                    ctx.lineTo( 20, 65 );
+                    ctx.moveTo( 0, 38 );
+                    ctx.lineTo( 20, 48 );
+                    ctx.moveTo( 20, 48 );
+                    ctx.lineTo( 40, 38 );
+                    ctx.moveTo( 20, 64 );
+                    ctx.lineTo( 0, 90 );
+                } else if (errorCount >= 6) {
+                    ctx.strokeRect( 10, 10, 20, 20 );
+                    ctx.moveTo( 20, 30 );
+                    ctx.lineTo( 20, 65 );
+                    ctx.moveTo( 0, 38 );
+                    ctx.lineTo( 20, 48 );
+                    ctx.moveTo( 20, 48 );
+                    ctx.lineTo( 40, 38 );
+                    ctx.moveTo( 20, 64 );
+                    ctx.lineTo( 0, 90 );
+                    ctx.moveTo( 20, 64 );
+                    ctx.lineTo( 40, 90 );
+                }
+
+                ctx.stroke();
+
+                console.log(errorCount);
+                
+            }
+
+
+
+            let checkSimbol = function() {
+
+                let inputRandomSimbol = prompt('input random simbol', '');
+
+                if( inputRandomSimbol != null ){
+
+                    for( let i = 0; i < randomWordFromArray.length ; i++ ){
+
+                        if ( inputRandomSimbol == randomWordFromArray[i] && inputRandomSimbol != answerArray[i] ) {
+                            answerArray[i] = inputRandomSimbol;
+                            alert(answerArray);
+                            countSecretSimbols =- 1;
+                            checkSimbol();
+                            return;
+                        }
+
+                    };
+
+                    errorCount++;
+                    checkSimbol();
+                } else if ( inputRandomSimbol === null ) {
+                    canvasIfError();
+                    return;
+                }
+
+            };
+            
+
+
+            checkSimbol();
+
+
+
+/*
+            for A === _
+
+            if true = answerArray + "A"
+
+            else = WOODOO
+
+            funct CANVAS WOODOO
+*/
+
+
+            //console.log(answerArray);
+
+        </script>
+    </body>
+</html>

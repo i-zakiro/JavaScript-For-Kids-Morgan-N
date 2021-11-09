@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Canvas</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="900" height="900"></canvas>
+        <script>
+            // JavaScript-code
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+
+
+            let circle = function( x, y, radius, fillCircle ) {
+
+                ctx.beginPath();
+
+                ctx.arc( x, y, radius, Math.PI * 2, false );
+
+                if( fillCircle ) {
+                    ctx.fill();
+                } else {
+                    ctx.stroke();
+                };
+
+            };
+
+
+
+            let drawSnowman = function( x, y ) {
+
+                ctx.lineWidth = 6;
+                ctx.fillStyle = "black";
+                circle( x + 100, y + 97, 7, true );
+                circle( x + 100, y + 124, 7, true );
+                circle( x + 100, y + 153, 7, true );
+                circle( x + 100, y + 124, 50, false );
+                circle( x + 100, y + 38, 35, false );
+                circle( x + 87, y + 30, 7, true );
+                circle( x + 113, y + 30, 7, true );
+                ctx.fillStyle = "gold";
+                circle( x + 100, y + 45, 7, true );
+
+            };
+
+            drawSnowman( 0, 0 );
+            drawSnowman( 150, 100 );
+
+        </script>
+    </body>
+</html>

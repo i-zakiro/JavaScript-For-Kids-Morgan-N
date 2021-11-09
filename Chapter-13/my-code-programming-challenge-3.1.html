@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mousemove</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <canvas id="canvas" width="900" height="900"></canvas>
+        <script>
+
+            // JavaScript-code
+
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+
+            let createArc = function(x, y, radius, fillRext) {
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, 2 * Math.PI);
+                if (fillRext) {
+                    ctx.fill();
+                } else {
+                    ctx.stroke();
+                }
+            };
+
+            $("canvas").mousemove(
+                function(event) {
+                    createArc(event.offsetX, event.offsetY, 3, true)
+                }
+            );
+
+
+        </script>
+    </body>
+</html>

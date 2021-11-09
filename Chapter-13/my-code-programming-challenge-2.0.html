@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Canvas</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="900" height="900"></canvas>
+        <script>
+
+            // JavaScript-code
+
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext("2d");
+        ctx.strokeStyle = 'blue';
+
+
+        let pointsArrayNumber = 0;
+
+        let drawPoints = function( pointsArray ) {
+
+            ctx.beginPath();
+
+            for ( let i = 0; i < pointsArray.length-1; i++ ) {
+                ctx.moveTo(pointsArray[i][0], pointsArray[i][1]);
+                ctx.lineTo(pointsArray[i + 1][0], pointsArray[i + 1][1]);
+            };
+
+            ctx.stroke();
+
+        };
+
+
+
+        //var points = [[50, 50], [50, 100], [100, 100], [100, 50], [50, 50]];
+        //drawPoints(points);
+
+        var mysteryPoints = [[50, 50], [50, 100], [25, 120], [100, 50], [70, 90], [100, 90], [70, 120]];
+        drawPoints(mysteryPoints);
+
+        </script>
+    </body>
+</html>

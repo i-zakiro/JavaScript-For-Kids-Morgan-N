@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Canvas</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="300" height="300"></canvas>
+        <script>
+            // JavaScript-code
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+            ctx.lineWidth = 6;
+
+
+            let circle = function( x, y, radius, fillCircle ) {
+
+                ctx.beginPath();
+
+                ctx.arc( x, y, radius, Math.PI * 2, false );
+
+                if( fillCircle ) {
+                    ctx.fill();
+                } else {
+                    ctx.stroke();
+                };
+
+            };
+
+
+            circle( 100, 97, 7, true );
+            circle( 100, 124, 7, true );
+            circle( 100, 153, 7, true );
+            circle( 100, 124, 50, false );
+            circle( 100, 38, 35, false );
+            circle( 87, 30, 7, true );
+            circle( 113, 30, 7, true );
+            ctx.fillStyle = "gold";
+            circle( 100, 45, 7, true );
+
+        </script>
+    </body>
+</html>
