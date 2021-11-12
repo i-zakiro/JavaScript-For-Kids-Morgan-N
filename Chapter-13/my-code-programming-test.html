@@ -9,10 +9,24 @@
 
     <script>
 
-        var answerArray = ['a', 'b', 'c'];
-        answerArray[3] = 'd';
+        var guess = "a";
 
-        alert("Good job! The answer was " + answerArray.join(" "));
+        var answerArray = [];
+
+        var word = "pancake";
+
+        var updateGameState = function(guess, answerArray, word) {
+            var appearances = 0;
+            for( var j = 0; j < word.length; j++ ){
+                if ( guess === word[j] ) {
+                    answerArray[j] = guess;
+                    appearances++;
+                }
+            }
+            return appearances;
+        }
+
+        alert(updateGameState(guess, answerArray, word));
 
     </script>
 </body>
