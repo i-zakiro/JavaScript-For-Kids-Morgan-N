@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>Keyboard input</title>
+
+</head>
+
+<body>
+
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+  <script>
+    
+  // JavaScript
+
+  //create canvas
+
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  var width = canvas.width;
+  var height = canvas.height;
+
+  //F circle(x y radius fillCircle)
+
+  var circle = function(x, y, radius, fillCircle) {
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    if (fillCircle) {
+      ctx.fill();
+    } else {
+      ctx.stroke();
+    }
+  };
+
+  //create Ball construntor
+
+  var Ball = function() {
+    this.x = width / 2;
+    this.y = height / 2;
+    this.speed = 5;
+    this.xSpeed = 5;
+    this.ySpeed = 0;
+  };
+
+  //F Ball.move > this.x += this.xSpeed > if x200 = 0
+
+  Ball.prototype.move = function() {
+    this.x += this.xSpeed;
+    this.y += this.ySpeed;
+
+    if (this.x < 0 || this.x > width) {
+      this.xSpeed = -this.xSpeed;
+    }
+
+    if (this.y < 0 || this.y > width) {
+      this.ySpeed = -this.ySpeed;
+    }
+  };
+
+  //F draw circle(this.x this.y 10 true)
+
+  Ball.prototype.draw = function() {
+    circle(this.x, this.y, 10, true);
+  };
+
+  // setDirection > if left this.xSpeed = -5
+
+  Ball.prototype.setDirection = function(direction) {
+    if (direction === "up") {
+      this.xSpeed = 0;
+      this.ySpeed = -this.speed;
+    } else if (direction === "down") {
+      this.xSpeed = 0;
+      this.ySpeed = this.speed;
+    } else if (direction === "left") {
+      this.xSpeed = -this.speed;
+      this.ySpeed = 0;
+    } else if (direction === "right") {
+      this.xSpeed = this.speed;
+      this.ySpeed = 0;
+    } else if (direction === "stop") {
+      this.xSpeed = 0;
+      this.ySpeed = 0;
+    }
+  };
+
+  Ball.prototype.setSpeed = function(manualSpeed) {
+    if (typeof manualSpeed === 'number') {
+      this.speed = manualSpeed;
+    }
+  }
+
+  //create new ball
+
+  var ball = new Ball();
+
+  var keyActions = {
+    32: "stop", // остановка
+    37: "left", // влево
+    38: "up",   // вверх
+    39: "right",// вправо
+    40: "down"  // вниз
+  };
+
+  var differentSpeed = {
+    49: 1, 
+    50: 2, 
+    51: 3,
+    52: 4,
+    53: 5,
+    54: 6,
+    55: 7,
+    56: 8,
+    57: 9
+  };
+
+  //event listener if keyDown > F setDirection
+
+  $( "body" ).keydown(function(event) {
+    var direction = keyActions[event.keyCode];
+    ball.setDirection(direction);
+  });
+
+  //event listener if keyDown > F setSpeed
+
+  $( "body" ).keydown(function(event) {
+    var manualSpeed = differentSpeed[event.keyCode];
+    ball.setSpeed(manualSpeed);
+  });
+
+  //setInterval clear > draw > move > rectStroke
+
+  setInterval(function() {
+    ctx.clearRect(0, 0, width, height);
+
+    ball.draw();
+    ball.move();
+    
+    ctx.strokeRect(0, 0, width, height);
+  }, 30);
+
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Jumping ball - my code</title>
+</head>
+
+<body>
+
+  <canvas id="canvas" width="200" height="200"></canvas>
+  <script>
+
+  // JavaScript
+
+  // create new object ball
+
+  var Ball = function() {
+    this.x = 100;
+    this.y = 100;
+    this.xSpeed = -3;
+    this.ySpeed = 2;
+  }
+
+  // create proto circle draw circle
+
+  var circle = function(x, y, radius, fillRectangle) {
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    if (fillRectangle) {
+      ctx.fill();
+    } else {
+      ctx.stroke();
+    }
+  }
+
+  // proto move
+
+  Ball.prototype.circleArc = function() {
+    circle(this.x, this.y, 3, true);
+  }
+
+  Ball.prototype.moveArc = function() {
+    this.x += this.xSpeed;
+    this.y += this.ySpeed;
+  }
+
+  // proto checkCollision
+
+  Ball.prototype.checkCollision = function() {
+    if (this.x < 0 || this.x > 200) {
+      this.xSpeed = -this.xSpeed;
+    }
+    if (this.y < 0 || this.y > 200) {
+      this.ySpeed = -this.ySpeed;
+    }
+  }
+
+  //create new ball
+
+  var canvas = document.getElementById("canvas");
+  var ctx = canvas.getContext("2d");
+  var ball = new Ball();
+
+  // setInterval F clearRect drawCircle moveCircle checkCollision
+
+  setInterval(function() {
+
+    ctx.clearRect(0, 0, 200, 200);
+
+    ball.circleArc();
+    ball.moveArc();
+    ball.checkCollision();
+
+
+    ctx.strokeRect(0, 0, 200, 200); 
+
+  } , 30)
+
+  </script>
+</body>
+
+</html>

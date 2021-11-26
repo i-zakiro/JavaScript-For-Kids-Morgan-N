@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>animation canvas bee</title>
+</head>
+
+<body>
+
+  <canvas id="canvas" width="200" height="200"></canvas>
+  <script>
+
+  // JavaScript
+
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    var x = 100;
+    var y = 100;
+
+    //draw arc
+    var circle = function( x, y, radius, fillRect ) {
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
+      if (fillRect) {
+        ctx.fill();
+      } else {
+        ctx.stroke();
+      }
+    }
+
+    //draw bee in coordinates
+
+    var drawBee = function (x, y) {
+
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "Black";
+      ctx.fillStyle = "Gold";
+      
+      circle(x, y, 8, true);
+      circle(x, y, 8, false);
+      circle(x - 5, y - 11, 5, false);
+      circle(x + 5, y - 11, 5, false);
+      circle(x - 2, y - 1, 2, false);
+      circle(x + 2, y - 1, 2, false);
+
+    };
+
+    //random coordinates
+
+    var randomCoordinatesOffset = function(coordinate) {
+      var offset = Math.random() * 4 - 2;
+      coordinate += offset;
+      return coordinate;
+    }
+
+    //set interval start draw in random coordinates
+
+    setInterval(function() {
+
+      ctx.clearRect(0, 0, 200, 200);
+      ctx.strokeRect(0, 0, 200, 200);
+
+      drawBee(x, y);
+      x = randomCoordinatesOffset(x);
+      y = randomCoordinatesOffset(y);
+
+
+    } , 30)
+
+  </script>
+</body>
+
+</html>

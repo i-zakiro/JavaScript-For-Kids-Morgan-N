@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <meta charset="UTF-8">
+
+    <title>SNAKES - my code!</title>
+  </head>
+
+  <body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <script>
+
+      //comments
+      /*
+      Настроить «холст»
+      Установить счет игры в 0
+      Создать змейку
+      Создать яблоко
+      Каждые 100 миллисекунд {
+        Очистить «холст»
+        Напечатать текущий счет игры
+        Сдвинуть змейку в текущем направлении
+        Если змейка столкнулась со стеной или своим хвостом {
+          Закончить игру
+        } Иначе Если змейка съела яблоко {
+          Увеличить счет на 1
+          Переместить яблоко на новое место
+          Увеличить длину змейки
+        }
+        Для каждого сегмента тела змейки {
+          Нарисовать сегмент
+        }
+        Нарисовать яблоко
+        Нарисовать рамку
+      }
+      Когда игрок нажмет клавишу {
+        Если это клавиша-стрелка {
+          Обновить направление движения змейки
+        }
+
+      }
+*/
+
+    // JavaScript
+
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var width = canvas.width;
+    var height = canvas.height;
+
+    var blockSize = 10;
+    var widthInBlocks = width / blockSize;
+    var heightInBlocks = height / blockSize;
+
+    var score = 0;
+
+    var drawBorder = function () {
+      ctx.fillStyle = "Gray";
+      ctx.fillRect(0, 0, width, blockSize);
+      ctx.fillRect(0, height - blockSize, width, blockSize);
+      ctx.fillRect(0, 0, blockSize, height);
+      ctx.fillRect(width - blockSize, 0, blockSize, height);
+    };
+
+    var drawScore = function () {
+      ctx.font = "20px Courier";
+      ctx.fillStyle = "Black";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+      ctx.fillText("Счет: " + score, blockSize, blockSize);
+    };
+
+    var gameOver = function () {
+      clearInterval(intervalId);
+      ctx.font = "60px Courier";
+      ctx.fillStyle = "Black";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("Конец игры", width / 2, height / 2);
+    };
+
+
+    </script>
+  </body>
+
+</html>

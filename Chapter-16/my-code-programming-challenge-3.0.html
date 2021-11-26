@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <meta charset="UTF-8">
+
+    <title>challenge 3 - my code!</title>
+  </head>
+
+  <body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <script>
+    // JavaScript
+
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var width = canvas.width;
+    var height = canvas.height;
+    ctx.font = "54px serif";
+    ctx.lineWidth = 4;
+
+    // let massive = wordsMassive
+
+    var randomWords = ["acoyote", "ajackal", "acheetah", "aturtle", "aorangutan", "adeer"];
+
+    // getRandomWord(randomWords)
+
+    var getRandomWord = function(randomWords){return randomWords[Math.floor(Math.random() * randomWords.length)];} 
+
+    // let randomWord = getRandomWord(wordsMassive);
+
+    var randomWord = getRandomWord(randomWords);
+
+    // let massiveAnswerArray
+
+    var massiveAnswer = [];
+
+    // F createMassiveAnswerArray (randomWord) "_"
+
+    var createMassiveAnswerArray = function(randomWord) {
+      for (var i = 0; i < randomWord.length; i++) {
+        massiveAnswer[i] = " ";
+      }
+    };
+
+    // = createMassiveAnswerArray(randomWord)
+
+    createMassiveAnswerArray(randomWord);
+
+    // let unsolvedSimbols = randomWord.length;
+
+    var unsolvedSimbols = randomWord.length;
+
+    // let wrongMassive = [];
+
+    var wrongMassive = [];
+
+
+
+
+
+
+    
+
+    // let errorsCount = 0;
+
+    var errorsCount = 0;
+
+
+
+
+
+
+
+
+    // F drawPeople
+
+    var drawPeople = function () {
+      ctx.strokeRect(20, 20, 20, 20);
+      ctx.beginPath();
+      ctx.moveTo(30, 40);
+      ctx.lineTo(30, 80);
+      ctx.moveTo(30, 80);
+      ctx.lineTo(10, 110);
+      ctx.moveTo(30, 80);
+      ctx.lineTo(50, 110);
+      ctx.moveTo(30, 60);
+      ctx.lineTo(10, 50);
+      ctx.moveTo(30, 60);
+      ctx.lineTo(50, 50);
+      ctx.stroke();
+    };
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //drawPeople();
+
+
+
+
+
+
+
+    // F drawAnswerMassive(massiveAnswer)
+
+    var drawAnswerMassive = function(massiveAnswer) {
+      ctx.textBaseline = "bottom";
+      ctx.textAlign = "left";
+      var AnswerXcoordinate = 30;
+      for (var l = 0; l < massiveAnswer.length; l++) {
+        ctx.fillText(massiveAnswer[l], AnswerXcoordinate, height - 4);
+        AnswerXcoordinate += 40;
+      }
+    };
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //drawAnswerMassive(massiveAnswer);    
+
+
+
+
+
+
+
+    // F create underscoreUnderAnswerMassive
+
+    var underscoreUnderAnswerMassive = function(massiveAnswer) {
+      var underscoreXcoordinate = 30;
+      ctx.beginPath();
+
+      for (var i = 0; i < massiveAnswer.length; i++) {
+        ctx.moveTo(underscoreXcoordinate, height - 15);
+        ctx.lineTo(underscoreXcoordinate + 30, height - 15);
+        underscoreXcoordinate += 40; 
+      };
+      
+      ctx.stroke();
+    };
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //underscoreUnderAnswerMassive(massiveAnswer);
+
+
+
+
+
+
+
+
+
+
+    // F drawWrongMassive(wrongMassive)
+
+    var drawWrongMassive = function(wrongMassive) {
+      var wrongMassiveYcoordinate = 50;
+      ctx.textBaseline = "middle";
+      ctx.textAlign = "center";
+      for( var j = 0; j < wrongMassive.length; j++ ){
+        ctx.fillText(wrongMassive[j], width - 45, wrongMassiveYcoordinate);
+        wrongMassiveYcoordinate += 50;
+      }
+    };
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //drawWrongMassive(wrongMassive);   
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // F create drawWrongMassiveLines
+
+    var drawWrongMassiveLines = function(wrongMassive) {
+      var linesYcoordinate = 50;
+      ctx.beginPath();
+
+      for (var i = 0; i < wrongMassive.length; i++) {
+        ctx.moveTo(width - 60, linesYcoordinate);
+        ctx.lineTo(width - 30, linesYcoordinate);
+        linesYcoordinate += 50;
+      };
+      
+      ctx.stroke();
+    };
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //drawWrongMassiveLines(wrongMassive);
+
+
+
+
+
+
+
+
+
+    var borderAround = function() {
+      ctx.rect(0, 0, width, height);
+      ctx.stroke();
+    }
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //borderAround();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // F youwin draw > "you win"
+
+    var youWin = function() {
+      ctx.textBaseline = "middle";
+      ctx.textAlign = "center";
+      ctx.fillText("YOU WIN!", width / 2, height / 2);
+    };
+
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //youWin();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // F rightOrNotSimbol(guess) >  > for() check simbol with randomWord
+    // if guess === randomWord[i] add guess in massiveAnswerArray[i] > unsolvedSimbols--;
+    // else add guess in wrongMassive[]; > errorsCount++;
+
+    var rightOrNotSimbol = function(guess, randomWord) {
+      var isOneSimbol = false;
+      for (var k = 0; k < randomWord.length ; k++) {
+        if (guess === randomWord[k]) {
+          massiveAnswer[k] = guess;
+          unsolvedSimbols--;
+          isOneSimbol = true;
+        }
+      }
+
+      if (!isOneSimbol) {
+        wrongMassive.push(guess);
+        errorsCount++;
+      }
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // let keyArray = ["1231": "a"...]
+    var keyArray = {
+      65: 'a',
+      66: 'b',
+      67: 'c',
+      68: 'd',
+      69: 'e',
+      70: 'f',
+      71: 'g',
+      72: 'h',
+      73: 'i',
+      74: 'j',
+      75: 'k',
+      76: 'l',
+      77: 'm',
+      78: 'n',
+      79: 'o',
+      80: 'p',
+      81: 'q',
+      82: 'r',
+      83: 's',
+      84: 't',
+      85: 'u',
+      86: 'v',
+      87: 'w',
+      88: 'x',
+      89: 'y',
+      90: 'z'
+    };
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //alert(keyArray[65]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    F event listener onPushKey(event)
+      // let guess;
+        guess = keyArray[event]
+      if (unsolvedSimbols > 0) 
+          rightOrNotSimbol(guess, randomWord) 
+    //    drawWrongMassive(wrongMassive[])
+    //   > drawAnswerMassive(massiveAnswerArray[])
+    //   > drawPeople();
+      else if (unsolvedSimbols == 0) > youWinDraw()
+*/
+
+    document.addEventListener('keydown', function(event){
+      var guess;
+      guess = keyArray[event.keyCode];
+      ctx.clearRect(0, 0, width, height);
+
+      if (unsolvedSimbols > 0) {
+        rightOrNotSimbol(guess, randomWord);
+        drawPeople();
+        drawAnswerMassive(massiveAnswer);
+        underscoreUnderAnswerMassive(massiveAnswer);
+        drawWrongMassive(wrongMassive);
+        drawWrongMassiveLines(wrongMassive);
+        borderAround();
+      } else if (unsolvedSimbols == 0){
+        youWin()
+      }
+
+    } );
+
+    </script>
+  </body>
+
+</html>
