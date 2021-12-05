@@ -45,7 +45,7 @@
 
     // Clear the interval and display Game Over text
     var gameOver = function () {
-      clearInterval(intervalId);
+      playing = false;
       ctx.font = "60px Courier";
       ctx.fillStyle = "Black";
       ctx.textAlign = "center";
@@ -105,8 +105,17 @@
 
     // Draw a square for each segment of the snake's body
     Snake.prototype.draw = function () {
-      for (var i = 0; i < this.segments.length; i++) {
-        this.segments[i].drawSquare("Blue");
+      this.segments[0].drawSquare("LimeGreen");
+      var isEvenSegment = false;
+
+      for (var i = 1; i < this.segments.length; i++) {
+        if (isEvenSegment) {
+          this.segments[i].drawSquare("Blue");
+        } else {
+          this.segments[i].drawSquare("Yellow");
+        }
+
+        isEvenSegment = !isEvenSegment; // Next segment will be odd
       }
     };
 
@@ -137,6 +146,7 @@
 
       if (newHead.equal(apple.position)) {
         score++;
+        animationTime -= 5;
         apple.move();
       } else {
         this.segments.pop();
@@ -199,15 +209,26 @@
     var snake = new Snake();
     var apple = new Apple();
 
-    // Pass an animation function to setInterval
-    var intervalId = setInterval(function () {
+    var playing = true;
+    var animationTime = 100;
+
+    // Create a game loop function, which will call itself using setTimeout
+    var gameLoop = function () {
       ctx.clearRect(0, 0, width, height);
       drawScore();
       snake.move();
       snake.draw();
       apple.draw();
       drawBorder();
-    }, 100);
+
+      // This is set to false by the gameOver function
+      if (playing) {
+        setTimeout(gameLoop, animationTime);
+      }
+    };
+
+    // Start the game loop
+    gameLoop();
 
     // Convert keycodes to directions
     var directions = {

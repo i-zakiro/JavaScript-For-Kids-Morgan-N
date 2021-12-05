@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <meta charset="UTF-8">
+
+    <title>SNAKES - my code!</title>
+  </head>
+
+  <body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <script>
+
+      // Настройка «холста»
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+
+
+
+
+
+
+      // Получаем ширину и высоту элемента canvas
+
+      var width = canvas.width;
+
+      var height = canvas.height;
+
+
+
+
+
+
+
+      // Вычисляем ширину и высоту в ячейках
+
+      var blockSize = 10;
+
+      var blockInWidth = width / blockSize;
+      var blockInHeight = height / blockSize;
+
+
+
+
+
+
+
+
+      // Устанавливаем счет 0
+
+      var score = 0;
+
+
+
+
+
+
+
+      // Рисуем рамку
+
+      var drawBorder = function() {
+        ctx.fillStyle = "grey";
+        ctx.rect(0, 0, width, blockSize);
+        ctx.rect(0, height - blockSize, width, blockSize);
+        ctx.rect(0, 0, blockSize, height);
+        ctx.rect(width - blockSize, 0, blockSize, height);
+        ctx.fill();
+      }
+
+
+
+
+
+
+      // Выводим счет игры в левом верхнем углу
+      var drawScore = function(score) {
+        ctx.textBaseline = "top";
+        ctx.fillText("the score is: " + score, blockSize, blockSize);
+      }
+
+
+
+
+
+
+
+
+
+      // Отменяем действие setInterval и печатаем сообщение «Конец игры»
+      var gameOver = function() {
+        clearInterval(intervalID);
+        ctx.fillStyle = "black";
+        ctx.font = '48px serif';
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "center";
+        ctx.fillText("gameOver", width/2, height/2);
+      }
+
+
+
+
+
+
+
+
+      // Рисуем окружность (используя функцию из главы 14)
+        var circle = function (x, y, radius, fillCircle) {
+
+          ctx.beginPath();
+
+          ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+          if (fillCircle) {
+            ctx.fill();
+
+          } else {
+            ctx.stroke();
+          }
+
+        };
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // Задаем конструктор Block (ячейка)
+      var Block = function(x, y){
+        this.x = x;
+        this.y = y;
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+      // Рисуем квадрат в позиции ячейки
+      Block.prototype.rectanglePartOfSnake = function(color){
+        ctx.fillStyle = color;
+        ctx.rect(this.x * blockSize, this.y * blockSize, blockSize, blockSize);
+        ctx.fill();
+      };
+
+      //var block = new Block(10, 10);
+      //block.rectanglePartOfSnake("blue");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // Рисуем круг в позиции ячейки
+      Block.prototype.drawCircleApple = function(color) {
+        ctx.fillStyle = color;
+        circle(this.x * blockSize + blockSize/2, this.y * blockSize + blockSize/2, blockSize/2, true);
+      };
+      //Block.drawCircleApple("blue")
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////not done F
+      // Проверяем, находится ли эта ячейка в той же позиции, что и ячейка 
+      // otherBlock
+      Block.prototype.checkIsTwoBlocksInOneBlock = function( otherBlock ) {
+        var checkResult = false;
+
+        for(var k = 0; k < snake.segments.length; k++){
+          if( this.x === otherBlock.x && this.y === otherBlock.y ){
+            checkResult = true;
+          };
+        }
+
+        return checkResult;
+      };
+
+
+
+
+
+
+
+
+
+      // Задаем конструктор Snake (змейка)
+      var Snake = function(){
+
+        this.segments = [
+          new Block(7, 5),
+          new Block(6, 5),
+          new Block(5, 5)
+        ];
+
+        this.direction = "right";
+        this.newDirection = "right";
+      };
+
+
+
+
+
+
+      // Рисуем квадратик для каждого сегмента тела змейки
+      var drawSnake = function(){
+        for (var i = 0; i < snake.segments.length; i++) {
+          snake.segments[i].rectanglePartOfSnake("blue");
+        }
+      };
+
+
+
+
+
+
+
+
+
+
+      // Создаем новую голову и добавляем ее к началу змейки,
+      // чтобы передвинуть змейку в текущем направлении
+      var newHeadCreateAndAdd = function() {
+        var snakeHead = snake.segments[0];
+        if (snake.newDirection === "left") {
+          snake.segments.unshift(new Block(snakeHead.x - 1, snakeHead.y));
+          snake.direction = "left";
+        }
+        if (snake.newDirection === "top") {
+          snake.segments.unshift(new Block(snakeHead.x, snakeHead.y - 1));
+          snake.direction = "top";
+        }
+        if (snake.newDirection === "right") {
+          snake.segments.unshift(new Block(snakeHead.x + 1, snakeHead.y));
+          snake.direction = "right";
+        }
+        if (snake.newDirection === "down") {
+          snake.segments.unshift(new Block(snakeHead.x, snakeHead.y + 1));
+          snake.direction = "down";
+        }
+
+        if ( apple.position.checkIsTwoBlocksInOneBlock(snakeHead) ) {
+          score++;
+          appleRandomPosition();
+          return;
+        }
+
+        snake.segments.splice(-1,1);
+      }
+
+
+
+
+
+
+
+
+
+      // Проверяем, не столкнулась ли змейка со стеной или собственным 
+      // телом
+      var checkIsHeadBorderAndSnake = function() {
+        if ( snake.segments[0].x === 0 || snake.segments[0].x === blockInWidth - 1 ) {
+          gameOver();
+        }
+        if ( snake.segments[0].y === 0 || snake.segments[0].y === blockInHeight - 1 ) {
+          gameOver();
+        }
+        for ( var j = 1 ; j < snake.segments.length ; j++ ) {
+          if ( snake.segments[0].checkIsTwoBlocksInOneBlock(snake.segments[j]) ) {
+            gameOver();
+          }
+        }
+      }
+
+
+
+
+
+
+
+
+
+
+
+      // Задаем следующее направление движения змейки на основе нажатой 
+      // клавиши
+      var newDirectionEvent = function(directionEvent) {
+        if (directionEvent === "left" && snake.direction !== "right") {
+          snake.newDirection = directionEvent;
+        }
+        if (directionEvent === "top" && snake.direction !== "down") {
+          snake.newDirection = directionEvent;
+        }
+        if (directionEvent === "right" && snake.direction !== "left") {
+          snake.newDirection = directionEvent;
+        }
+        if (directionEvent === "down" && snake.direction !== "top") {
+          snake.newDirection = directionEvent;
+        }
+
+      };
+
+
+
+
+
+
+
+
+
+
+
+
+      // Задаем конструктор Apple (яблоко)
+      var Apple = function() {
+        this.position = new Block(10, 10);
+      };
+
+
+
+
+
+
+
+
+
+
+
+
+      // Рисуем кружок в позиции яблока
+      var drawApple = function() {
+        apple.position.drawCircleApple("green");
+      };
+
+
+
+
+
+
+
+
+
+
+
+
+      // Перемещаем яблоко в случайную позицию
+      var appleRandomPosition = function() {
+        apple.position.x = Math.floor(Math.random() * (blockInWidth - 2)) + 1;
+        apple.position.y = Math.floor(Math.random() * (blockInHeight - 2)) + 1;
+      };
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // Создаем объект-змейку и объект-яблоко
+      var apple = new Apple();
+      var snake = new Snake();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // Запускаем функцию анимации через setInterval
+      var intervalID = setInterval(function() {
+        ctx.clearRect(0, 0, width, height);
+        drawBorder();
+        drawScore(score);
+        drawSnake();
+        drawApple();
+        newHeadCreateAndAdd();
+        checkIsHeadBorderAndSnake();
+      }, 200);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // Преобразуем коды клавиш в направления
+//////////////////////////////////howCreateMassiveKeyProperty/////////////////////https://otus.ru/nest/post/1301/
+      var directionEvent = "right";
+      var doKeyDownCodeToString = function(event) {
+        var arrayKeyCodesToString = {
+          37: "left",
+          38: "top",
+          39: "right",
+          40: "down"
+        };
+        directionEvent = arrayKeyCodesToString[event.keyCode];
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+      // Задаем обработчик события keydown (клавиши-стрелки)
+      document.addEventListener('keydown', function(event) {
+        doKeyDownCodeToString(event);
+        newDirectionEvent(directionEvent);
+      });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+  </body>
+
+</html>
